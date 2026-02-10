@@ -95,7 +95,7 @@ nav {
                 url('guitar.png'); 
     background-size: cover;
     background-position: center;
-    color: var(--black);
+    color: var(--white);
     padding: 3rem 2rem 4rem 2rem;
     text-align: center;
     position: relative;
@@ -123,13 +123,13 @@ nav {
 .hero h1 {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
-    color: var(--black);
+    color: var(--white);
 }
 
 .hero p {
     font-size: 1.3rem;
     margin-bottom: 2rem;
-    color: var(--black);
+    color: var(--white);
     font-weight: 500;
 }
 
