@@ -1,6 +1,6 @@
 /* external stylesheet */
 
-* {
+* { 
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -10,7 +10,7 @@
     --primary: #d4a5a5;
     --sage: #a8b5a0;
     --accent: #8b9d83;
-    --black: #2d3320;
+    --black: #000000;
     --white: #f5f5f0;
     --pink: #e8b4b8;
 }
