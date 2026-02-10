@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Services & Booking - Band Works</title>
+    <link rel="stylesheet" href="bandworks-css.css">
+    
+    <style>
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 2px solid var(--pink);
+            padding: 15px;
+            text-align: left;
+        }
+        th { background-color: var(--secondary); color: var(--dark); }
+
+        .booking-form {
+            background: white;
+            padding: 20px;
+            border: 3px solid var(--pink);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="baseLayout.html" class="logo"><img src="image 1.png" alt="Logo" class="logo-image"></a>
+            <ul class="nav-links">
+                <li><a href="baseLayout.html">Home</a></li>
+                <li><a href="aboutPage.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="hallOfRock.html">Hall of Rock</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section>
+        <div class="container">
+            <h2>Our Services</h2>
+            
+            <table>
+                <tr>
+                    <th>Service Package</th>
+                    <th>What's Included</th>
+                    <th>Price</th>
+                </tr>
+                <tr>
+                    <td>The Solo Session</td>
+                    <td>1 Hour studio time + Technician</td>
+                    <td>$40</td>
+                </tr>
+                <tr>
+                    <td>The Full Band Jam</td>
+                    <td>2 Hours + Full Gear Rental</td>
+                    <td>$75</td>
+                </tr>
+            </table>
+
+            <h2>Book Your Session</h2>
+            <form action="#" method="GET" class="booking-form">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Choose Service:</label>
+                    <select id="service" name="service">
+                        <option value="solo">Solo Session</option>
+                        <option value="band">Full Band Jam</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <button type="submit" class="cta-button">Request Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>📍 43 Rock Street, Music City, MA 03144</li>
+                    <li>📞 (666) 747 - 8923</li>
+                    <li>✉️ rock@bandworks.com</li>
+                    <li>🕐 Mon-Sun: 24 Hours Fully Open</li> 
+                    <!-- what happened to 24 hour stores?  -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Band Works. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+</body>
+</html>
+</body>
+</html>
+ </div>
