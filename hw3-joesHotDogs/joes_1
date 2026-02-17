@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joe's Hotdog Stand - Part 1</title>
+</head>
+<body>
+    <div class="container">
+        <h1> Joe's Hotdog Stand</h1>
+        <div id="Order Details"></div>
+    </div>
+
+    <script>
+         alert("Welcome to Joe's Hotdog Stand!\n\n" +
+              "MENU:\n" +
+              "• Hotdog - $5.25\n" +
+              "• French Fries - $3.75\n" +
+              "• Drink - $2.50\n\n" +
+              "SPECIALS:\n" +
+              "• Joe's Meal Deal - $10.00 (1 hotdog, 1 fries, 1 drink)\n" +
+              "• 10% discount on orders of $30 or more!");
+
+        // constants
+        const HOTDOG = 5.25;
+        const FRIES = 3.75;
+        const DRINK = 2.50;
+        const MEAL_DEAL = 10.00;
+        const DISCOUNT_THRESHOLD = 30.00;
+        const DISCOUNT_RATE = 0.10;
+        const TAX = 0.0625;
+
+        // user input
+        let numDogs = parseInt(prompt("How many hotdogs do you want?", "0"));
+        let numFries = parseInt(prompt("How many fries do you want?", "0"));
+        let numSoda = parseInt(prompt("How many drinks do you want?", "0"));
+
+        // makes sure none is assigned a val
+        if (isNaN(numDogs)) numDogs = 0;
+        if (isNaN(numFries)) numFries = 0;
+        if (isNaN(numSoda)) numSoda = 0;
+
+        function showMoney(amount) {
+            // multiply by 100, round to nearest integer, then divide by 100
+            let rounded = Math.round(amount * 100) / 100;
+            
+            // decimal part is always 2 digits
+            let decimalPart = Math.round((rounded - wholePart) * 100);
+            
+            let decimalString = decimalPart.toString();
+            if (decimalPart < 10) {
+                decimalString = "0" + decimalString;
+            }
+            
+            return Math.floor(rounded) + "." + decimalString;
+        }
+
+        let hotdogTotal = numDogs * HOTDOG;
+        let drinksTotal = numDogs * DRINK;
+        let friesTotal = numDogs * FRIES;
+        let subtotal = hotdogTotal + friesTotal + drinkTotal;
+
+        // now apply the meal deal
+        let mealDeals = Math.min(numDogs, numFries, numSoda);
+        let mealDealDiscount = 0;
+
+        if (mealDeals > 0) {
+
+            let regularCost = mealDeals * (HOTDOG + FRIES + DRINK);
+            let mealDealCost = mealDeals * MEAL_DEAL;
+            mealDealDiscount = regularCost - mealDealCost;
+
+            // then fix total subtotal
+            subtotal = subtotal - mealDealDiscount;
+        }
+
+        let subtotalBeforeDiscount = subtotal;
+
+        // applies 10% discount i $30 or more
+        let discountAmount = 0;
+        if (subtotal >= DISCOUNT_THRESHOLD) {
+            discountAmount = subtotal * DISCOUNT_RATE;
+            subtotal = subtotal - discountAmount;
+        }
+
+        let subtotalAfterDiscount = subtotal;
+        let taxAmount = subtotal * TAX;
+        let finalTotal = subtotal + taxAmount;
+
+        // displays order details
+        let orderHTML = "<h2>Order Summary</h2>";
+        
+        orderHTML += '<div class="order-line">';
+        orderHTML += '<span>Hotdogs (x' + numDogs + ')</span>';
+        orderHTML += '<span>$' + showMoney(numDogs * HOTDOG) + '</span>';
+        orderHTML += '</div>';
+        
+        orderHTML += '<div class="order-line">';
+        orderHTML += '<span>French Fries (x' + numFries + ')</span>';
+        orderHTML += '<span>$' + showMoney(numFries * FRIES) + '</span>';
+        orderHTML += '</div>';
+        
+        orderHTML += '<div class="order-line">';
+        orderHTML += '<span>Drinks (x' + numSoda + ')</span>';
+        orderHTML += '<span>$' + showMoney(numSoda * DRINK) + '</span>';
+        orderHTML += '</div>';
+
+        if (mealDeals > 0) {
+            orderHTML += '<div class="order-line discount">';
+            orderHTML += '<span>Joe\'s Meal Deal Savings (x' + mealDeals + ')</span>';
+            orderHTML += '<span>-$' + showMoney(mealDealDiscount) + '</span>';
+            orderHTML += '</div>';
+        }
+        
+        orderHTML += '<div class="order-line subtotal">';
+        orderHTML += '<span>Subtotal Before Discount</span>';
+        orderHTML += '<span>$' + showMoney(subtotalBeforeDiscount) + '</span>';
+        orderHTML += '</div>';
+        
+        if (discountAmount > 0) {
+            orderHTML += '<div class="order-line discount">';
+            orderHTML += '<span>10% Discount (orders $30+)</span>';
+            orderHTML += '<span>-$' + showMoney(discountAmount) + '</span>';
+            orderHTML += '</div>';
+        }
+        
+        orderHTML += '<div class="order-line subtotal">';
+        orderHTML += '<span>Subtotal After Discount</span>';
+        orderHTML += '<span>$' + showMoney(subtotalAfterDiscount) + '</span>';
+        orderHTML += '</div>';
+        
+        orderHTML += '<div class="order-line">';
+        orderHTML += '<span>MA Sales Tax (6.25%)</span>';
+        orderHTML += '<span>$' + showMoney(taxAmount) + '</span>';
+        orderHTML += '</div>';
+        
+        orderHTML += '<div class="order-line total">';
+        orderHTML += '<span>FINAL TOTAL</span>';
+        orderHTML += '<span>$' + showMoney(finalTotal) + '</span>';
+        orderHTML += '</div>';
+
+        document.getElementById('orderDetails').innerHTML = orderHTML;
+    </script>
+</body>
+</html>
