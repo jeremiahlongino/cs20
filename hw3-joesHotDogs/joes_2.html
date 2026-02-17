@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joe's Hotdog Stand - Part 1</title>
+    <title>Joe's Hotdog Stand - Part 2</title>
     <style>
         body {
             font-family: Arial;
@@ -42,24 +42,34 @@
               "• Joe's Meal Deal - $10.00 (1 hotdog, 1 fries, 1 soda)\n" +
               "• 10% discount on orders of $30 or more!!!!!!!");
 
-        // constants
-        const HOTDOG = 5.25;
-        const FRIES = 3.75;
-        const SODA = 2.50;
+        // constants array
+        const itemPrices = {
+            "Hotdogs": 5.25,
+            "French Fries": 3.75,
+            "Drinks": 2.50
+        };
+
+        // quantities array
+        const itemQuants = {};
+
         const MEAL_DEAL = 10.00;
         const DISCOUNT_THRESHOLD = 30.00;
         const DISCOUNT_RATE = 0.10;
         const TAX = 0.0625;
 
-        // user input
-        let numDogs = parseInt(prompt("How many hotdogs do you want?", "0"));
-        let numFries = parseInt(prompt("How many fries do you want?", "0"));
-        let numSoda = parseInt(prompt("How many drinks do you want?", "0"));
+        // loop to ask for everything
+        for (let item in itemPrices) {
 
-        // makes sure none is assigned a val
-        if (isNaN(numDogs)) numDogs = 0;
-        if (isNaN(numFries)) numFries = 0;
-        if (isNaN(numSoda)) numSoda = 0;
+            let quantity = parseInt(prompt("How many " + item + " do you want?","0"))
+            
+            // any nones are turned to 0 same as before
+            if (isNaN(quantity)) {
+                quantity = 0;
+            }
+            
+            // add quantities to second array
+            itemQuants[item] = quantity;
+        }
 
         function showMoney(amount) {
             // multiply by 100, round to nearest integer, then divide by 100
@@ -76,28 +86,39 @@
             return Math.floor(rounded) + "." + decimalString;
         }
 
-        let hotdogTotal = numDogs * HOTDOG;
-        let sodaTotal = numSoda * SODA;
-        let friesTotal = numFries * FRIES;
-        let subtotal = hotdogTotal + friesTotal + sodaTotal;
 
-        // now apply the meal deal
-        let mealDeals = Math.min(numDogs, numFries, numSoda);
+        
+
+        let subtotal = 0;
+        for (let item in itemPrices) {
+            subtotal += itemPrices[item] * itemQuants[item];
+        }
+
+        // applies meal deal based off quantities
+        let mealDeals = Math.min(
+            itemQuants["hotdogs"],
+            itemQuants["fries"],
+            itemQuants["sodas"]
+        );
+        
         let mealDealDiscount = 0;
-
         if (mealDeals > 0) {
+            
+            let regularCost = mealDeals * (
+                itemPrices["hotdogs"] + 
+                itemPrices["fries"] + 
+                itemPrices["sodas"]
+            );
 
-            let regularCost = mealDeals * (HOTDOG + FRIES + SODA);
             let mealDealCost = mealDeals * MEAL_DEAL;
             mealDealDiscount = regularCost - mealDealCost;
 
-            // then fix total subtotal
             subtotal = subtotal - mealDealDiscount;
         }
 
         let subtotalBeforeDiscount = subtotal;
 
-        // applies 10% discount i $30 or more
+        // applies 10% discount if $30 or more
         let discountAmount = 0;
         if (subtotal >= DISCOUNT_THRESHOLD) {
             discountAmount = subtotal * DISCOUNT_RATE;
@@ -111,20 +132,14 @@
         // displays order details
         let orderHTML = "<h2>Order Summary</h2>";
         
-        orderHTML += '<div class="order-line">';
-        orderHTML += '<span>Hotdogs (' + numDogs + ')</span>';
-        orderHTML += '<span>$' + showMoney(numDogs * HOTDOG) + '</span>';
-        orderHTML += '</div>';
-        
-        orderHTML += '<div class="order-line">';
-        orderHTML += '<span>French Fries (' + numFries + ')</span>';
-        orderHTML += '<span>$' + showMoney(numFries * FRIES) + '</span>';
-        orderHTML += '</div>';
-        
-        orderHTML += '<div class="order-line">';
-        orderHTML += '<span>Drinks (' + numSoda + ')</span>';
-        orderHTML += '<span>$' + showMoney(numSoda * SODA) + '</span>';
-        orderHTML += '</div>';
+        for (let item in itemPrices) {
+            let qty = itemQuants[item];
+            orderHTML += '<div class="order-line">';
+            orderHTML += '<span>' + item + ' (' + qty + ')</span>';
+            orderHTML += '<span>$' + showMoney(itemPrices[item] * qty) + '</span>';
+            orderHTML += '</div>';
+        }
+
 
         if (mealDeals > 0) {
             orderHTML += '<div class="order-line discount">';
