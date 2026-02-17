@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joe's Hotdog Stand - Part 1</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+        .order-line {
+            display: flex;
+            justify-content: space-between;
+            max-width: 300px;
+        }
+        .order-line.total {
+            font-weight: bold;
+            border-top: 1px solid #333;
+            margin-top: 5px;
+            padding-top: 5px;
+        }
+        .order-line.subtotal {
+            font-weight: bold;
+        }
+    </style>
+    
 </head>
 <body>
     <div class="container">
@@ -19,7 +40,7 @@
               "• Drink - $2.50\n\n" +
               "SPECIALS:\n" +
               "• Joe's Meal Deal - $10.00 (1 hotdog, 1 fries, 1 drink)\n" +
-              "• 10% discount on orders of $30 or more!");
+              "• 10% discount on orders of $30 or more!!!!!!!");
 
         // constants
         const HOTDOG = 5.25;
