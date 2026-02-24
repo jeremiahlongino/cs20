@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Tic-Tac-Toe Pt. 2</title>
+<style>
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+      width: fit-content;
+    }
+    .square{
+        width: 100px;
+        height: 100px;
+        border: 2px solid;
+        display: inline-block;
+        font-size: 60px;
+        text-align: center;
+        line-height: 100px;
+        margin: 5px;
+        cursor: pointer;
+    }
+    .square:hover {
+      background-color: grey;
+    }
+    .board {
+      width: 340px;
+    }
+    #turn{
+      border: 2px solid;
+      padding-left: 120px;
+      margin-bottom: 10px;
+      width: 200px;
+    }
+    #win{
+      border:2px solid; 
+      padding-left: 80px;
+      padding-right: 40px;
+      margin-top: 20px;
+      width: 200px;
+    }
+</style>
+</head>
+<body>
+    
+  <h1>Tic Tac Toe</h1>
+  <div id="turn">Start Game Below</div> 
+  <div class="board"> 
+    <script>const NUM_SQUARES = 9;
+        for (i=0; i<NUM_SQUARES; i++)
+        {
+            id = "sq" + i;
+            document.write( "<div class='square' id='" + id + "'></div>" );
+        }
+    </script>
+    </div>
+
+    <div id="win">Winner Appears Here</div>
+    <button onclick="GameStarts()">Start Game</button>
+    
+
+  <script>
+    // set a symbol first so it knows how to switch and make sure to check if
+    // game running
+    var currSymbol = "X";
+    var active = false;
+
+
+    // Whenever I place a square I fill all squares up dashes to know which 
+    // ones are empty or not, then continuously check game state for if a 
+    // player wins or if there is a tie
+    function symbolPlace(squareNum) {
+
+      if (!active) return;
+      var sq = document.getElementById("sq" + squareNum);
+      if (sq.innerHTML != "") return;
+
+      sq.innerHTML = currSymbol;
+
+      var moves = [];
+      var squares = document.querySelectorAll(".square");
+      squares.forEach(function(div) {
+        var val = div.innerHTML.trim();
+        moves.push(val === "" ? "-" : val);
+      });
+
+      
+      var winConditions = [
+        moves[0]+moves[1]+moves[2],
+        moves[3]+moves[4]+moves[5],
+        moves[6]+moves[7]+moves[8],
+        moves[0]+moves[3]+moves[6],
+        moves[1]+moves[4]+moves[7],
+        moves[2]+moves[5]+moves[8],
+        moves[0]+moves[4]+moves[8],
+        moves[2]+moves[4]+moves[6]
+      ];
+
+      var winner = null;
+      winConditions.forEach(function(condition) {
+        if (condition === "XXX") winner = "X";
+        if (condition === "OOO") winner = "O";
+      });
+
+      if (winner !== null) {
+        active = false;
+        document.getElementById("win").innerHTML = winner + " wins!";
+        document.getElementById("turn").innerHTML = "Fin~";
+        return;
+      }
+
+      // checks if every dash was replaced with a symbol or not
+      var empty = false;
+      moves.forEach(function(m) {
+        if (m === "-") empty = true;
+      });
+
+      if (!empty) {
+        active = false;
+        document.getElementById("win").innerHTML = ":( Cat, It's a tie"; //Idk if everyone else calls it a cat but that's what we called it as kids
+        document.getElementById("turn").innerHTML = "Start Again"; //Never end on a loss, someone has to win
+        return;
+      }
+
+      sq.innerHTML = currSymbol;
+      currSymbol = (currSymbol === "X") ? "O" : "X";
+      document.getElementById("turn").innerHTML = currSymbol + "'s turn now";
+    }
+
+    function GameStarts() {
+      currSymbol = ["X", "O"][Math.round(Math.random())];
+      active = true;
+
+      for (var i = 0; i < 9; i++) {
+        document.getElementById("sq" + i).innerHTML = "";
+        document.getElementById("sq" + i).onclick = (function(n) {
+          return function() { symbolPlace(n); };
+        })(i);
+      }
+
+      document.getElementById("turn").innerHTML = currSymbol + "'s turn now";
+      document.getElementById("win").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
