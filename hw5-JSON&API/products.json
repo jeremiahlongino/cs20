@@ -1,0 +1,94 @@
+[
+  {
+    "name": "Super Massive 6",
+    "description": "You can now own the most giant number in the world!",
+    "price": 400000,
+    "categories": [
+      "numbers",
+      "toy"
+    ]
+  },
+  {
+    "name": "Tiny 7",
+    "description": "The world's smallest 7 ever created! Some would say you wouldn't even know it existed!",
+    "price": 75000,
+    "categories": [
+      "numbers",
+      "toy"
+    ]
+  },
+  {
+    "name": "Sponge Maker",
+    "description": "With just 48 hours and 17 minutes you can have a semi-perfect sponge!",
+    "price": 100,
+    "categories": [
+      "electronics",
+      "essential"
+    ]
+  },
+  {
+    "name": "Crater Finder",
+    "description": "Not to be used for sinkholes, traps, or potholes. Only for craters.",
+    "price": 249,
+    "categories": [
+      "electronics",
+      "accessories"
+    ]
+  },
+  {
+    "name": "2 Degree Knife",
+    "description": "1000 degrees are way too much, knives are meant to be ice cold. (Note: in celsius not fahrenheit)",
+    "price": 28,
+    "categories": [
+      "kitchen",
+      "handmade"
+    ]
+  },
+  {
+    "name": "5 Pig Feet Clogs",
+    "description": "5 clogs of esteemed creation. Each clog handmade from artist, 5 Pig Feet.",
+    "price": 45,
+    "categories": [
+      "shoes",
+      "elusive"
+    ]
+  },
+  {
+    "name": "Simon Says Decider",
+    "description": "Can't decide if a person didn't do what Simon said? This one can't either, but it can help if Simon says something at all!",
+    "price": 58,
+    "categories": [
+      "home decor",
+      "handmade"
+    ]
+  },
+  {
+    "name": "Stained and Stickered Steel Water Bottle",
+    "description": "This one is sort of a joke, but I think we know some people who would buy a bottle pre-stickered.",
+    "price": 700,
+    "categories": [
+      "indoor",
+      "outdoor",
+      "halfwaydoor"
+    ]
+  },
+  {
+    "name": "Tardigrade Controlling Toe Ring",
+    "description": "An army billions strong at just your (almost) heel!",
+    "price": 12,
+    "categories": [
+      "clothing",
+      "military"
+    ]
+  },
+  {
+    "name": "Diamond Encrusted Chocolate Bar",
+    "description": "We tested and can only assume the chocolate inside did not melt, but don't let that stop you!",
+    "price": 2,
+    "categories": [
+      "candy",
+      "diamond",
+      "accessories"
+    ]
+  }
+]

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"   
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   
+	crossorigin="anonymous">
+ </script>
+    <meta charset="UTF-8">      
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products2 - Button Display</title>
+</head>
+
+<style>
+    #button {
+        margin: 5px;
+        padding: 10px;
+        background-color: lightskyblue;
+        color: white;
+        border: black solid 1px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    #button:hover {
+        background-color: lightblue;
+    }
+</style>
+<body>
+<h1 style="text-align: center;">Products2 - Load Products</h1>
+<div style="text-align: center;">
+    <button id="button">Load Products</button>
+</div>
+<div id="loadProducts"></div>
+
+<script>
+    $("#button").on("click", function() {
+    $.getJSON("products.json", function(data) {
+        console.log(data);
+        $("#loadProducts").html(""); // clears previous results
+
+        data.forEach(function(product) {
+            var productInfo = "Name: " + product.name + "<br>" +
+                              "Description: " + product.description + "<br>" +
+                              "Price: $" + product.price + "<br>" +
+                              "Categories: " + product.categories.join(", ") + "<br><br>";
+            $("#loadProducts").append(productInfo);
+        });
+    });
+});
+</script>
+</body>
