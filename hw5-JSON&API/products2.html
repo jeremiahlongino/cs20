@@ -23,6 +23,29 @@
     #button:hover {
         background-color: lightblue;
     }
+
+    .square{
+        border: 2px solid #333;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px;
+        width: 250px;
+        display: inline-block; 
+        vertical-align: top;
+        text-align: left;
+        background-color: #f9f9f9;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .square:hover {
+      background-color: lightgray;
+    }
+
+    #loadProducts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 </style>
 <body>
 <h1 style="text-align: center;">Products2 - Load Products</h1>
@@ -33,15 +56,14 @@
 
 <script>
     $("#button").on("click", function() {
-    $.getJSON("products.json", function(data) {
-        console.log(data);
+    $.getJSON("https://jeremiahlongino.github.io/cs20/hw5-JSON%26API/products.json", function(data) {
         $("#loadProducts").html(""); // clears previous results
 
         data.forEach(function(product) {
-            var productInfo = "Name: " + product.name + "<br>" +
-                              "Description: " + product.description + "<br>" +
-                              "Price: $" + product.price + "<br>" +
-                              "Categories: " + product.categories.join(", ") + "<br><br>";
+            var productInfo = "<div class='square'>" + "<h3>" + product.name + "</h3>" +
+                              "<p>" + product.description + "</p>" +
+                              "<p><strong>Price: $</strong>" + product.price + "</p>" +
+                              "<p><strong>Categories: </strong> " + product.categories.join(", ") + "</p>"+ "</div>";
             $("#loadProducts").append(productInfo);
         });
     });

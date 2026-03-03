@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"   
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   
+	crossorigin="anonymous">
+ </script>
+    <meta charset="UTF-8">      
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products3 - FILTERS</title>
+</head>
+
+<style>
+    select, #button {
+        margin: 5px;
+        padding: 10px;
+        background-color: lightskyblue;
+        color: white;
+        border: black solid 1px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    #button:hover {
+        background-color: lightblue;
+    }
+
+    .square{
+        border: 2px solid #333;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px;
+        width: 250px;
+        display: inline-block; 
+        vertical-align: top;
+        text-align: left;
+        background-color: #f9f9f9;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .square:hover {
+      background-color: lightgray;
+    }
+
+    #loadProducts {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+</style>
+<body>
+<h1 style="text-align: center;">Products3 - FILTERS</h1>
+<div style="text-align: center;">
+    <button id="filterSelect">Filter</button> <select id="categorySelect"></select> 
+</div>
+<div id="loadProducts"></div>
+
+<script>
+    let productsData = [];
+
+    $(document).ready(function() {
+
+        $.getJSON("https://jeremiahlongino.github.io/cs20/hw5-JSON%26API/products.json", function(data) {
+
+            productsData = data;
+            let categories = new Set();
+
+            // gets each unique category
+            data.forEach(function(product) {
+                product.categories.forEach(function(category) {
+                    categories.add(category);
+                });
+            });
+
+            // default
+            $("#categorySelect").append("<option value=''>Select Category</option>");
+
+            // fills the dropdown
+            categories.forEach(function(category) {
+                $("#categorySelect").append(
+                    "<option value='" + category + "'>" + category + "</option>"
+                );
+            });
+
+        });
+
+        // filters and provides names of products
+        $("#filterSelect").click(function() {
+
+            let selected = $("#categorySelect").val();
+            let output = "";
+
+            productsData.forEach(function(product) {
+                if (product.categories.includes(selected)) {
+                    output += "<div class='square'>" + product.name + "</div>";
+                }
+            });
+
+            $("#loadProducts").html(output);
+
+        });
+
+});
+</script>
+</body>
