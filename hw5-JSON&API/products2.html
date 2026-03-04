@@ -57,7 +57,8 @@
 <script>
     $("#button").on("click", function() {
     $.getJSON("https://jeremiahlongino.github.io/cs20/hw5-JSON%26API/products.json", function(data) {
-        $("#loadProducts").html(""); // clears previous results
+        // clears previous results
+        $("#loadProducts").html(""); 
 
         data.forEach(function(product) {
             var productInfo = "<div class='square'>" + "<h3>" + product.name + "</h3>" +

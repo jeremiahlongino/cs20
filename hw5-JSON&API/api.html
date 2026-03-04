@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <style>
+        body {
+            text-align: center;
+        }
+
+        input, button {
+            padding: 8px;
+            margin: 10px;
+            font-size: 16px;
+            background-color: lightpink;
+
+        }
+
+        .square {
+            border: 1px solid white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px auto;
+            width: 300px;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+            
+        }
+
+        .square img {
+            width: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1 style="text-align: center;">Movie API</h1>
+
+<input type="text" id="movieInput" placeholder="Enter A Movie Por Favor:">
+
+<div style="text-align: center;">
+    <button id="fetchData">Fetch Data</button>
+</div>
+
+<div id="displayData" style="margin-top: 20px; text-align: center;"></div>  
+
+<script>
+    $("#fetchData").click(function() {
+
+    let title = $("#movieInput").val();
+
+    // If input is empty, don't search
+    if (title === "") {
+        $("#displayData").html("<p>Please look up a movie :(</p>");
+        return;
+    }
+
+        // A get with my special api key, and you just attach the title to the end
+    $.get("https://www.omdbapi.com/?apikey=9e848207&s=" + title, function(data) {
+
+        let output = "";
+
+        // Shows general movie info plus any poster if it exists
+        if (data.Response === "True") {
+            data.Search.forEach(function(movie) {
+                output += `
+                    <div class="movieCard">
+                        <h3>${movie.Title}</h3>
+                        <p><strong>Year:</strong> ${movie.Year}</p>
+                        <p><strong>Type:</strong> ${movie.Type}</p>
+                        <img src="${movie.Poster}" alt="Poster">
+                    </div>
+                `;
+            });
+
+        } else {
+            output = "<p>No results found brah</p>";
+        }
+        $("#displayData").html(output);
+    });
+});
+</script>
+
+</body>
+</html>
