@@ -1,71 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>API</title>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <style>
-        body {
-            text-align: center;
-        }
+      body {
+        text-align: center;
+      }
 
-        input, button {
-            padding: 8px;
-            margin: 10px;
-            font-size: 16px;
-            background-color: lightpink;
+      input,
+      button {
+        padding: 8px;
+        margin: 10px;
+        font-size: 16px;
+        background-color: lightpink;
+      }
 
-        }
+      .square {
+        border: 1px solid white;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 15px auto;
+        width: 300px;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+      }
 
-        .square {
-            border: 1px solid white;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px auto;
-            width: 300px;
-            box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-            
-        }
-
-        .square img {
-            width: auto;
-            border-radius: 5px;
-        }
+      .square img {
+        width: auto;
+        border-radius: 5px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <h1 style="text-align: center">Movie API</h1>
 
-<h1 style="text-align: center;">Movie API</h1>
+    <input type="text" id="movieInput" placeholder="Enter A Movie Por Favor:" />
 
-<input type="text" id="movieInput" placeholder="Enter A Movie Por Favor:">
+    <div style="text-align: center">
+      <button id="fetchData">Fetch Data</button>
+    </div>
 
-<div style="text-align: center;">
-    <button id="fetchData">Fetch Data</button>
-</div>
+    <div id="displayData" style="margin-top: 20px; text-align: center"></div>
 
-<div id="displayData" style="margin-top: 20px; text-align: center;"></div>  
+    <script>
+      $("#fetchData").click(function () {
+        let title = $("#movieInput").val();
 
-<script>
-    $("#fetchData").click(function() {
-
-    let title = $("#movieInput").val();
-
-    // If input is empty, don't search
-    if (title === "") {
-        $("#displayData").html("<p>Please look up a movie :(</p>");
-        return;
-    }
+        // If input is empty, don't search
+        if (title === "") {
+          $("#displayData").html("<p>Please look up a movie :(</p>");
+          return;
+        }
 
         // A get with my special api key, and you just attach the title to the end
-    $.get("https://www.omdbapi.com/?apikey=9e848207&s=" + title, function(data) {
+        $.get(
+          "https://www.omdbapi.com/?apikey=9e848207&s=" + title,
+          function (data) {
+            let output = "";
 
-        let output = "";
-
-        // Shows general movie info plus any poster if it exists
-        if (data.Response === "True") {
-            data.Search.forEach(function(movie) {
+            // Shows general movie info plus any poster if it exists
+            if (data.Response === "True") {
+              data.Search.forEach(function (movie) {
                 output += `
                     <div class="movieCard">
                         <h3>${movie.Title}</h3>
@@ -74,31 +72,39 @@
                         <img src="${movie.Poster}" alt="Poster">
                     </div>
                 `;
-            });
+              });
+            } else {
+              output = "<p>No results found brah</p>";
+            }
+            $("#displayData").html(output);
+          },
+        );
+      });
+    </script>
+    <hr />
 
-        } else {
-            output = "<p>No results found brah</p>";
-        }
-        $("#displayData").html(output);
-    });
-});
-</script>
-<hr>
+    <h2>API Deets</h2>
 
-<h2>API Deets</h2>
+    <p>
+      I chose the Open Movie Database (OMDB) API, mainly because it was one of
+      the examples of a free API that I looked up but also because it's pretty
+      cool. It gives movie data in the JSON format and allows searching for
+      movies too.
+    </p>
 
-<p>I chose the Open Movie Database (OMDB) API, mainly because it was one of the 
-    examples of a free API that I looked up but also because it's pretty cool. 
-    It gives movie data in the JSON format and allows searching for movies too.</p>
+    <p><strong>Source:</strong> https://www.omdbapi.com/</p>
 
-<p><strong>Source:</strong> https://www.omdbapi.com/</p>
+    <p>
+      <strong>Parameters:</strong> The request uses "s=" to search by movie
+      title and "apikey=" for authentication.
+    </p>
 
-<p><strong>Parameters:</strong> The request uses "s=" to search by movie title and "apikey=" for authentication.</p>
-
-<p><strong> Use Case:</strong> I would definitely use this API to just search 
-    for movies to watch, but it would also be useful to have this plus like the
- Wikipedia API for more detailed information. For movies that I find interesting,
-but not enough to watch (or pay for), this API would be a great resource to find
-info all in one place.</p>
-</body>
+    <p>
+      <strong> Use Case:</strong> I would definitely use this API to just search
+      for movies to watch, but it would also be useful to have this plus like
+      the Wikipedia API for more detailed information. For movies that I find
+      interesting, but not enough to watch (or pay for), this API would be a
+      great resource to find info all in one place.
+    </p>
+  </body>
 </html>
