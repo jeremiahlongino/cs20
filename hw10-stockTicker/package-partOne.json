@@ -1,0 +1,12 @@
+{
+  "name": "stock-ticker-part1",
+  "version": "1.0.0",
+  "description": "Loads data into MongoDB atlas ",
+  "main": "loadData.js",
+  "scripts": {
+    "start": "node loadData.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  }
+}
